@@ -1,0 +1,235 @@
+/* ── Button ─────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  position: relative;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.primary {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 18px rgba(108,142,255,0.3);
+}
+.primary:hover:not(:disabled) {
+  background: #849aff;
+  box-shadow: 0 0 28px rgba(108,142,255,0.45);
+  transform: translateY(-1px);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.danger {
+  background: rgba(255,77,109,0.12) !important;
+  color: var(--danger) !important;
+  border: 1px solid var(--danger) !important;
+  box-shadow: none !important;
+}
+.danger:hover:not(:disabled) {
+  background: var(--danger) !important;
+  color: white !important;
+}
+
+.sm { padding: 7px 14px; font-size: 13px; }
+.md { padding: 10px 20px; font-size: 14px; }
+.lg { padding: 13px 28px; font-size: 15px; }
+
+/* ── Spinner inside button ──────────────── */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+/* ── Input ──────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+}
+.input::placeholder { color: var(--text-dim); }
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(108,142,255,0.12);
+}
+
+.inputWithIcon { padding-left: 38px; }
+.inputError { border-color: var(--danger) !important; }
+
+.errorMsg {
+  font-size: 12px;
+  color: var(--danger);
+}
+
+/* ── Badge ──────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.badge_default  { background: var(--surface-2); color: var(--text-muted); }
+.badge_success  { background: rgba(61,255,160,0.1); color: var(--success); }
+.badge_warning  { background: rgba(255,200,87,0.1);  color: var(--warning); }
+.badge_danger   { background: rgba(255,77,109,0.1);  color: var(--danger); }
+.badge_accent   { background: var(--accent-glow);    color: var(--accent); }
+
+/* ── Spinner standalone ─────────────────── */
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+.spinnerLg {
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Card ───────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 100%;   /* 🔥 MAIN FIX */
+  padding: 40px;
+
+  
+}
+
+/* ── Page Header ────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.pageSub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+/* ── Confirm Dialog ─────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.15s ease;
+}
+
+.dialog {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  width: 360px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.dialogIcon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: var(--warning);
+}
+
+.dialogMsg {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
