@@ -22,7 +22,11 @@ function validate(form) {
   if (!form.name.trim())   errs.name   = 'Name is required';
   if (!form.email.trim())  errs.email  = 'Email is required';
   else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Enter a valid email';
-  if (!form.phone.trim())  errs.phone  = 'Phone is required';
+   if (!form.phone.trim()) {
+    errs.phone = 'Phone is required';
+  } else if (!/^\+91\d{10}$/.test(form.phone)) {
+    errs.phone = 'Phone must start with +91 and have 10 digits';
+  }
   if (!form.course)        errs.course = 'Select a course';
   if (!form.grade)         errs.grade  = 'Select a grade';
   if (!form.year)          errs.year   = 'Select a year';
@@ -53,29 +57,40 @@ export default function StudentForm() {
     setForm(f => ({ ...f, [name]: value }));
     if (errors[name]) setErrors(e => ({ ...e, [name]: '' }));
   }
-
   async function submit(e) {
-    e.preventDefault();
-    const errs = validate(form);
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+  e.preventDefault();
 
-    setSaving(true);
-    try {
-      if (isEdit) {
-        await updateStudent(id, form);
-        showToast('Student updated successfully!');
-      } else {
-        await createStudent(form);
-        showToast('Student added successfully!');
-        setForm(EMPTY);
-      }
-      setTimeout(() => navigate('/students'), 1200);
-    } catch (err) {
-      showToast('Something went wrong. Try again.');
-    } finally {
-      setSaving(false);
-    }
+  const errs = validate(form);
+
+  if (Object.keys(errs).length) {
+    setErrors(errs);
+
+    // 👉 show all validation errors in alert
+    const messages = Object.values(errs).join('\n');
+    alert(messages);
+
+    return;
   }
+
+  setSaving(true);
+
+  try {
+    if (isEdit) {
+      await updateStudent(id, form);
+      showToast('Student updated successfully!');
+    } else {
+      await createStudent(form);
+      showToast('Student added successfully!');
+      setForm(EMPTY);
+    }
+
+    setTimeout(() => navigate('/students'), 1200);
+  } catch (err) {
+    showToast('Something went wrong. Try again.');
+  } finally {
+    setSaving(false);
+  }
+}
 
   function showToast(msg) {
     setToast(msg);
